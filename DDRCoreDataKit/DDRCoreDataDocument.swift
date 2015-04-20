@@ -81,9 +81,25 @@ public class DDRCoreDataDocument {
         var storeType : String = (storeURL != nil) ? NSSQLiteStoreType : NSInMemoryStoreType
         persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
 
+        var localURL = storeURL
+        var value: AnyObject?
+        var isDirectory = false
+
+        // if not an in memory store
+        if storeType != NSInMemoryStoreType {
+            // check if URL is a directory
+            if (localURL!.getResourceValue(&value, forKey: NSURLIsDirectoryKey, error: nil)) {
+                isDirectory = value as! Bool
+                // if it is a directory, try looking in directory for StoreContent/persistentStore as that is what UIManagedDocument uses
+                if isDirectory {
+                    localURL = localURL?.URLByAppendingPathComponent("StoreContent").URLByAppendingPathComponent("persistentStore")
+                }
+            }
+        }
+
         // try to create the persistent store
         var addError : NSError? = nil
-        if !(persistentStoreCoordinator.addPersistentStoreWithType(storeType, configuration: nil, URL: storeURL, options: pscOptions, error: &addError) != nil) {
+        if !(persistentStoreCoordinator.addPersistentStoreWithType(storeType, configuration: nil, URL: localURL, options: pscOptions, error: &addError) != nil) {
             if let error = addError {
                 println("Error adding persitent store to coordinator \(error.localizedDescription) \(error.userInfo!)")
             }
@@ -94,7 +110,7 @@ public class DDRCoreDataDocument {
 
         } else {
             // if everything went ok creating persistent store
-            self.storeURL = storeURL
+            self.storeURL = localURL
             // create the private MOC
             privateMOC = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
             privateMOC!.persistentStoreCoordinator = persistentStoreCoordinator
