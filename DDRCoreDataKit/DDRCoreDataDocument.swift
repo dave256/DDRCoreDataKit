@@ -89,7 +89,9 @@ public class DDRCoreDataDocument {
         if storeType != NSInMemoryStoreType {
             // check if URL is a directory
             if (localURL!.getResourceValue(&value, forKey: NSURLIsDirectoryKey, error: nil)) {
-                isDirectory = value as! Bool
+                if value != nil {
+                    isDirectory = value!.boolValue
+                }
                 // if it is a directory, try looking in directory for StoreContent/persistentStore as that is what UIManagedDocument uses
                 if isDirectory {
                     localURL = localURL?.URLByAppendingPathComponent("StoreContent").URLByAppendingPathComponent("persistentStore")
