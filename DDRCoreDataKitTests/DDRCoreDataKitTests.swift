@@ -49,6 +49,36 @@ class DDRCoreDataKitTests: XCTestCase {
         NSFileManager().removeItemAtURL(storeURL!, error: nil)
     }
 
+    func testOpeningUIManagedDocumentDirectory() {
+        let storeURL = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingPathComponent("test.sqlite3"))
+        let modelURL = NSBundle(forClass: DDRCoreDataKitTests.self).URLForResource("DDRCoreDataKitTests", withExtension: "momd")!
+        let tempDoc = DDRCoreDataDocument(storeURL: storeURL, modelURL: modelURL, options: nil)
+        XCTAssertNotNil(tempDoc, "doc is nil when it should not be")
+        let moc = tempDoc?.mainQueueMOC
+        let p = Person(managedObjectContext: moc)
+        p.firstName = "Dave"
+        p.lastName = "Reed"
+        tempDoc?.saveContextAndWait(true)
+
+        let dfm = NSFileManager.defaultManager()
+        let path = NSTemporaryDirectory().stringByAppendingPathComponent("CS161").stringByAppendingPathComponent("StoreContent")
+
+        dfm.createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: nil)
+        let destinationURL = NSURL(fileURLWithPath: path.stringByAppendingPathComponent("persistentStore"))
+        XCTAssertNotNil(destinationURL!, "destinationURL is not nil")
+        dfm.removeItemAtURL(destinationURL!, error: nil)
+        var error: NSError? = nil
+        dfm.moveItemAtURL(storeURL!, toURL: destinationURL!, error: &error)
+        XCTAssertNil(error, "move item error not nil")
+
+        let docURL = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingPathComponent("CS161"))
+        XCTAssertNotNil(docURL, "docURL is not nil")
+        let localDoc = DDRCoreDataDocument(storeURL: docURL, modelURL: modelURL, options: nil)
+        XCTAssertNotNil(localDoc, "doc is nil when it should not be")
+    }
+
+
+
     /*
     func testPerformanceExample() {
         // This is an example of a performance test case.
