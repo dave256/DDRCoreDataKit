@@ -101,6 +101,15 @@ public class DDRManagedObject: NSManagedObject {
     //----------------------------------------------------------------------
     // MARK:- instance methods
 
+    /// delete the object from its NSManagedObjectContext and call processPendingChanges to force cascade delete of any relationships now
+    ///
+    /// :post: the object is deleted from its MOC and prcoessPendingChanges is called to force cascade delete of any relationships now
+    public func deleteObjectAndProcessPendingChanges() {
+        let moc = self.managedObjectContext
+        moc?.deleteObject(self)
+        moc?.processPendingChanges()
+    }
+
     /// returns an NSManagedObject for the same object using the specifed managedObjectContext (or nil if non-temporary objectID)
     ///
     /// :pre: this NSManagedObject has a non-temporary objectID (otherwise returns nil)
