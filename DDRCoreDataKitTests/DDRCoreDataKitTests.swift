@@ -136,7 +136,7 @@ class DDRCoreDataKitTests: XCTestCase {
         let moc = doc.mainQueueMOC
 
         if moc != nil {
-            let childMOC = doc.newChildOfMainObjectContextWithConcurrencyType(NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
+            let childMOC = doc.newChildOfMainObjectContextWithConcurrencyType(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
             insertDaveReedInManagedObjectContext(moc)
             insertDaveSmithInManagedObjectContext(moc)
             childMOC.performBlockAndWait() {
@@ -196,25 +196,84 @@ class DDRCoreDataKitTests: XCTestCase {
         }
     }
 
+    func testSameManagedObjectWithSameMOC() {
+        let moc = doc.mainQueueMOC
+        insertDaveReedInManagedObjectContext(moc)
+        doc.saveContextAndWait(true)
+        let p1 = Person.allInstances(managedObjectContext: moc)[0] as! Person
+        XCTAssertNotNil(moc, "mainQueueMOC is nil")
+
+        let otherMoc = doc.mainQueueMOC //doc.newChildOfMainObjectContextWithConcurrencyType(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
+        let p2 = p1.sameManagedObjectUsingManagedObjectContext(managedObjectContext: otherMoc) as! Person?
+        XCTAssertNotNil(p2, "person in other MOC is nil")
+        assertPerson(p2!, hasFirstName: "Dave", lastName: "Reed")
+        let objectID = p1.objectID
+        otherMoc.performBlockAndWait { () -> Void in
+            XCTAssertEqual(objectID, p2!.objectID, "objectIDs do not match")
+        }
+    }
+
+    func testSameManagedObjectWithAnotherMainQueueMOC() {
+        let moc = doc.mainQueueMOC
+        insertDaveReedInManagedObjectContext(moc)
+        doc.saveContextAndWait(true)
+        let p1 = Person.allInstances(managedObjectContext: moc)[0] as! Person
+        XCTAssertNotNil(moc, "mainQueueMOC is nil")
+        let otherMoc = doc.newChildOfMainObjectContextWithConcurrencyType(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
+        let p2 = p1.sameManagedObjectUsingManagedObjectContext(managedObjectContext: otherMoc) as! Person?
+        let objectID = p1.objectID
+        otherMoc.performBlockAndWait { [unowned self] in
+            XCTAssertNotNil(p2, "person in other MOC is nil")
+            self.assertPerson(p2!, hasFirstName: "Dave", lastName: "Reed")
+            XCTAssertEqual(objectID, p2!.objectID, "objectIDs do not match")
+        }
+    }
+
+    func testSameManagedObjectWithPrivateChildMOC() {
+        let moc = doc.mainQueueMOC
+        insertDaveReedInManagedObjectContext(moc)
+        doc.saveContextAndWait(true)
+        let p1 = Person.allInstances(managedObjectContext: moc)[0] as! Person
+        XCTAssertNotNil(moc, "mainQueueMOC is nil")
+        let otherMoc = doc.newChildOfMainObjectContextWithConcurrencyType()
+        let p2 = p1.sameManagedObjectUsingManagedObjectContext(managedObjectContext: otherMoc) as! Person?
+        otherMoc.performBlockAndWait { [unowned self] in
+            XCTAssertNotNil(p2, "person in other MOC is nil")
+            self.assertPerson(p2!, hasFirstName: "Dave", lastName: "Reed")
+        }
+        let objectID = p1.objectID
+        otherMoc.performBlockAndWait { [unowned self] in
+            XCTAssertNotNil(p2, "person in other MOC is nil")
+            self.assertPerson(p2!, hasFirstName: "Dave", lastName: "Reed")
+            XCTAssertEqual(objectID, p2!.objectID, "objectIDs do not match")
+        }
+        // if fail to use performBlock, this will crash if set -com.apple.CoreData.ConcurrencyDebug 1
+        // as arguments passed on launch in Scheme, Run section
+        // self.assertPerson(p2!, hasFirstName: "Dave", lastName: "Reed")
+    }
+
+
+
     // MARK: - helper methods
 
-    func insertPersonWithFirstName(firstName: String, lastName: String, inManagedObjectContext moc: NSManagedObjectContext) {
+    func insertPersonWithFirstName(firstName: String, lastName: String, inManagedObjectContext moc: NSManagedObjectContext) -> Person {
         //var p = Person.newInstanceInManagedObjectContext(moc) as Person
         var p = Person(managedObjectContext: moc)
         p.firstName = firstName
         p.lastName = lastName
+        return p
     }
 
-    func insertDaveReedInManagedObjectContext(moc: NSManagedObjectContext) {
-        insertPersonWithFirstName("Dave", lastName: "Reed", inManagedObjectContext: moc)
+    func insertDaveReedInManagedObjectContext(moc: NSManagedObjectContext) -> Person {
+        return insertPersonWithFirstName("Dave", lastName: "Reed", inManagedObjectContext: moc)
     }
 
-    func insertDaveSmithInManagedObjectContext(moc: NSManagedObjectContext) {
-        insertPersonWithFirstName("Dave", lastName: "Smith", inManagedObjectContext: moc)
+    func insertDaveSmithInManagedObjectContext(moc: NSManagedObjectContext) -> Person {
+        return insertPersonWithFirstName("Dave", lastName: "Smith", inManagedObjectContext: moc)
     }
 
-    func insertJohnStroehInManagedObjectContext(moc: NSManagedObjectContext) {
-        insertPersonWithFirstName("John", lastName: "Stroeh", inManagedObjectContext: moc)
+    func insertJohnStroehInManagedObjectContext(moc: NSManagedObjectContext) -> Person {
+        return insertPersonWithFirstName("John", lastName: "Stroeh", inManagedObjectContext: moc)
     }
 
     func assertPerson(person : Person, hasFirstName firstName: String, lastName: String) {
