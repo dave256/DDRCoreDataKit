@@ -152,13 +152,13 @@ class DDRCoreDataKitTests: XCTestCase {
             p = items[1] as! Person
             assertDaveSmith(p)
 
-            childMOC.performBlockAndWait() {
+            childMOC.performBlockAndWait() { [unowned self] in
                 items = Person.allInstancesWithPredicate(nil, sortDescriptors: sorters, inManagedObjectContext: childMOC)
+                // childMOC should have 3 items
+                XCTAssertEqual(items.count, 3, "items.count is not 3")
+                p = items[2] as! Person
+                self.assertJohnStroeh(p)
             }
-            // childMOC should have 3 items
-            XCTAssertEqual(items.count, 3, "items.count is not 3")
-            p = items[2] as! Person
-            assertJohnStroeh(p)
 
             // mainMOC should still have 2 items
             items = Person.allInstancesWithPredicate(nil, sortDescriptors: sorters, inManagedObjectContext: moc)
