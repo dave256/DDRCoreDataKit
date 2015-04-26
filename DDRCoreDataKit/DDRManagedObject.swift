@@ -93,5 +93,37 @@ public class DDRManagedObject: NSManagedObject {
     public class func allInstances(managedObjectContext moc : NSManagedObjectContext) -> [AnyObject]! {
         return self.allInstancesWithPredicate(nil, sortDescriptors: nil, inManagedObjectContext: moc)
     }
-    
+
+    /// returns an NSManagedObject for the same object using the specifed managedObjectContext (or nil if non-temporary objectID)
+    ///
+    /// :pre: this NSManagedObject has a non-temporary objectID (otherwise returns nil)
+    /// :param: managedObjectContext the managedObjectContext to get the duplicate object on
+    /// :returns: an NSManagedObject for the same object using the specifed managedObjectContext (or nil if non-temporary objectID)
+    public func sameManagedObjectUsingManagedObjectContext(managedObjectContext otherMoc: NSManagedObjectContext) -> NSManagedObject? {
+        if (self.managedObjectContext!.isEqual(otherMoc)) {
+            #if DEBUG
+                println("cannot use same managedObjectContext or will deadlock so return self")
+            #endif
+            return self
+        }
+
+        let objectID = self.objectID
+        if objectID.temporaryID {
+            println("cannot use objectID that is temporaryID; must save context first")
+            return nil
+        }
+        var otherObject: NSManagedObject? = nil
+        otherMoc.performBlockAndWait {
+            var error: NSError? = nil
+            otherObject = otherMoc.existingObjectWithID(objectID, error: &error)
+            if error != nil {
+                otherObject = nil
+                #if DEBUG
+                    println("Error: existingObjectWithID \(error!.localizedDescription) \(error!.userInfo!)")
+                #endif
+            }
+        }
+
+        return otherObject
+    }
 }
