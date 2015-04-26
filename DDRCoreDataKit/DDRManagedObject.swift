@@ -97,7 +97,6 @@ public class DDRManagedObject: NSManagedObject {
         return self.allInstancesWithPredicate(nil, sortDescriptors: nil, inManagedObjectContext: moc)
     }
 
-
     //----------------------------------------------------------------------
     // MARK:- instance methods
 
@@ -112,7 +111,7 @@ public class DDRManagedObject: NSManagedObject {
 
     /// returns an NSManagedObject for the same object using the specifed managedObjectContext (or nil if non-temporary objectID)
     ///
-    /// :pre: this NSManagedObject has a non-temporary objectID (otherwise returns nil)
+    /// :post: is this object had a temporary objectID, calls obtainPermanentIDsForObjects([self]) to get a permanentID (which causes storage access)
     /// :param: managedObjectContext the managedObjectContext to get the duplicate object on
     /// :returns: an NSManagedObject for the same object using the specifed managedObjectContext (or nil if non-temporary objectID)
     public func sameManagedObjectUsingManagedObjectContext(managedObjectContext otherMoc: NSManagedObjectContext) -> NSManagedObject? {
@@ -123,12 +122,18 @@ public class DDRManagedObject: NSManagedObject {
             return self
         }
 
-        let objectID = self.objectID
-        if objectID.temporaryID {
-            println("cannot use objectID that is temporaryID; must save context first")
-            return nil
+        // check if temporary objectID and if so, get a permanent one
+        if self.objectID.temporaryID {
+            self.managedObjectContext!.obtainPermanentIDsForObjects([self], error: nil)
+            if self.objectID.temporaryID {
+                println("cannot use objectID that is temporaryID; must save context first")
+                return nil
+            }
         }
+        
+        let objectID = self.objectID
         var otherObject: NSManagedObject? = nil
+        // need to get object on its queue using performBlockAndWait
         otherMoc.performBlockAndWait {
             var error: NSError? = nil
             otherObject = otherMoc.existingObjectWithID(objectID, error: &error)
@@ -139,7 +144,6 @@ public class DDRManagedObject: NSManagedObject {
                 #endif
             }
         }
-
         return otherObject
     }
 }
