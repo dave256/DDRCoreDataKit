@@ -199,10 +199,11 @@ class DDRCoreDataKitTests: XCTestCase {
 
     func testSameManagedObjectWithSameMOC() {
         let moc = doc.mainQueueMOC
-        insertDaveReedInManagedObjectContext(moc)
-        doc.saveContextAndWait(true)
-        let p1 = Person.allInstances(managedObjectContext: moc)[0] as! Person
         XCTAssertNotNil(moc, "mainQueueMOC is nil")
+        let p1 = insertDaveReedInManagedObjectContext(moc)
+        var error: NSError? = nil
+        //moc.obtainPermanentIDsForObjects([p1], error: &error)
+        XCTAssertNil(error, "obtainPerfmanentIDsForObjects had non nil error")
 
         let otherMoc = doc.mainQueueMOC //doc.newChildOfMainObjectContextWithConcurrencyType(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
         let p2 = p1.sameManagedObjectUsingManagedObjectContext(managedObjectContext: otherMoc) as! Person?
@@ -216,10 +217,12 @@ class DDRCoreDataKitTests: XCTestCase {
 
     func testSameManagedObjectWithAnotherMainQueueMOC() {
         let moc = doc.mainQueueMOC
-        insertDaveReedInManagedObjectContext(moc)
-        doc.saveContextAndWait(true)
-        let p1 = Person.allInstances(managedObjectContext: moc)[0] as! Person
         XCTAssertNotNil(moc, "mainQueueMOC is nil")
+        let p1 = insertDaveReedInManagedObjectContext(moc)
+        var error: NSError? = nil
+        //moc.obtainPermanentIDsForObjects([p1], error: &error)
+        XCTAssertNil(error, "obtainPerfmanentIDsForObjects had non nil error")
+
         let otherMoc = doc.newChildOfMainObjectContextWithConcurrencyType(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
         let p2 = p1.sameManagedObjectUsingManagedObjectContext(managedObjectContext: otherMoc) as! Person?
         let objectID = p1.objectID
@@ -232,10 +235,12 @@ class DDRCoreDataKitTests: XCTestCase {
 
     func testSameManagedObjectWithPrivateChildMOC() {
         let moc = doc.mainQueueMOC
-        insertDaveReedInManagedObjectContext(moc)
-        doc.saveContextAndWait(true)
-        let p1 = Person.allInstances(managedObjectContext: moc)[0] as! Person
         XCTAssertNotNil(moc, "mainQueueMOC is nil")
+        let p1 = insertDaveReedInManagedObjectContext(moc)
+        var error: NSError? = nil
+        //moc.obtainPermanentIDsForObjects([p1], error: &error)
+        XCTAssertNil(error, "obtainPerfmanentIDsForObjects had non nil error")
+
         let otherMoc = doc.newChildOfMainObjectContextWithConcurrencyType()
         let p2 = p1.sameManagedObjectUsingManagedObjectContext(managedObjectContext: otherMoc) as! Person?
         otherMoc.performBlockAndWait { [unowned self] in
