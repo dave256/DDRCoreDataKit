@@ -31,6 +31,9 @@ otherwise entityName method will not work
 */
 public class DDRManagedObject: NSManagedObject {
 
+    //----------------------------------------------------------------------
+    // MARK:- class methods
+
     /// overriden by MOGenerator generated base class
     public class func entityName() -> String {
         return ""
@@ -93,6 +96,10 @@ public class DDRManagedObject: NSManagedObject {
     public class func allInstances(managedObjectContext moc : NSManagedObjectContext) -> [AnyObject]! {
         return self.allInstancesWithPredicate(nil, sortDescriptors: nil, inManagedObjectContext: moc)
     }
+
+
+    //----------------------------------------------------------------------
+    // MARK:- instance methods
 
     /// returns an NSManagedObject for the same object using the specifed managedObjectContext (or nil if non-temporary objectID)
     ///
