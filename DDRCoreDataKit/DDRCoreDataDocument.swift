@@ -221,7 +221,7 @@ public class DDRCoreDataDocument {
     /// param: concurrencyType specifies the NSManagedObjectContextConcurrencyType for the created context
     ///
     /// :returns: the created NSManagedObjectContext
-    public func newChildOfMainObjectContextWithConcurrencyType(concurrencyType : NSManagedObjectContextConcurrencyType) -> NSManagedObjectContext {
+    public func newChildOfMainObjectContextWithConcurrencyType(concurrencyType : NSManagedObjectContextConcurrencyType = NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType) -> NSManagedObjectContext {
         var moc = NSManagedObjectContext(concurrencyType: concurrencyType)
         moc.parentContext = mainQueueMOC
         return moc
