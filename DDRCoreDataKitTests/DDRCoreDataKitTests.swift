@@ -38,6 +38,7 @@ class DDRCoreDataKitTests: XCTestCase {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         storeURL = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingPathComponent("test.sqlite"))
+        NSFileManager().removeItemAtURL(storeURL!, error: nil)
         let modelURL = NSBundle(forClass: DDRCoreDataKitTests.self).URLForResource("DDRCoreDataKitTests", withExtension: "momd")!
         doc = DDRCoreDataDocument(storeURL: storeURL, modelURL: modelURL, options: nil)
         XCTAssertNotNil(doc, "doc is nil when it should not be")
