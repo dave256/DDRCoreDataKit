@@ -190,7 +190,7 @@ public class DDRCoreDataDocument {
         // save changes from privateMOC to persistent store
         if !(failed) {
             var hasChanges = false
-            privateMOC.performBlockAndWait() { [unowned self] in
+            privateMOC.performBlockAndWait() {
                 hasChanges = self.privateMOC.hasChanges
             }
             if hasChanges {

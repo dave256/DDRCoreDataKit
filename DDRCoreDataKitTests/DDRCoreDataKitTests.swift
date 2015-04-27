@@ -153,7 +153,7 @@ class DDRCoreDataKitTests: XCTestCase {
             p = items[1] as! Person
             assertDaveSmith(p)
 
-            childMOC.performBlockAndWait() { [unowned self] in
+            childMOC.performBlockAndWait() {
                 items = Person.allInstancesWithPredicate(nil, sortDescriptors: sorters, inManagedObjectContext: childMOC)
                 // childMOC should have 3 items
                 XCTAssertEqual(items.count, 3, "items.count is not 3")
@@ -226,7 +226,7 @@ class DDRCoreDataKitTests: XCTestCase {
         let otherMoc = doc.newChildOfMainObjectContextWithConcurrencyType(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
         let p2 = p1.sameManagedObjectUsingManagedObjectContext(managedObjectContext: otherMoc) as! Person?
         let objectID = p1.objectID
-        otherMoc.performBlockAndWait { [unowned self] in
+        otherMoc.performBlockAndWait {
             XCTAssertNotNil(p2, "person in other MOC is nil")
             self.assertPerson(p2!, hasFirstName: "Dave", lastName: "Reed")
             XCTAssertEqual(objectID, p2!.objectID, "objectIDs do not match")
@@ -243,12 +243,12 @@ class DDRCoreDataKitTests: XCTestCase {
 
         let otherMoc = doc.newChildOfMainObjectContextWithConcurrencyType()
         let p2 = p1.sameManagedObjectUsingManagedObjectContext(managedObjectContext: otherMoc) as! Person?
-        otherMoc.performBlockAndWait { [unowned self] in
+        otherMoc.performBlockAndWait {
             XCTAssertNotNil(p2, "person in other MOC is nil")
             self.assertPerson(p2!, hasFirstName: "Dave", lastName: "Reed")
         }
         let objectID = p1.objectID
-        otherMoc.performBlockAndWait { [unowned self] in
+        otherMoc.performBlockAndWait {
             XCTAssertNotNil(p2, "person in other MOC is nil")
             self.assertPerson(p2!, hasFirstName: "Dave", lastName: "Reed")
             XCTAssertEqual(objectID, p2!.objectID, "objectIDs do not match")
