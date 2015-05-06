@@ -2,7 +2,7 @@
 //  DDRCoreDataKitMacTests.swift
 //  DDRCoreDataKitMacTests
 //
-//  Created by David M Reed on 4/17/15.
+//  Created by David M Reed on 5/6/15.
 //  Copyright (c) 2015 David M Reed. All rights reserved.
 //
 
