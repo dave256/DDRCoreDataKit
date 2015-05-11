@@ -12,13 +12,13 @@
 
 import CoreData
 
-public enum DDROkOrError {
-    case Ok
+public enum DDRCoreDataSaveOrError {
+    case SaveOkHadChanges(Bool) // Bool indicates if saved changes to persistentStore (i.e., hasChanges was true)
     case Error(NSError)
     case ErrorString(String)
 }
 
-public typealias DDRCoreDataDocumentCompletionClosure = (status: DDROkOrError, doc: DDRCoreDataDocument?) -> Void
+public typealias DDRCoreDataDocumentCompletionClosure = (status: DDRCoreDataSaveOrError, doc: DDRCoreDataDocument?) -> Void
 
 /**
 class for accessing a Core Data Store
@@ -28,7 +28,7 @@ one context of type PrivateQueueConcurrencyType is used for saving to the store 
 
 the mainQueueMOC is a child context of the private context and is intended for use with the GUI
 
-also provices a method to get a child context of this main thread
+also provides a method to get a child context of the mainQueueMOC
 
 the saveContext method saves from the mainQueueMOC to the private context and to the persistent store
 
@@ -130,17 +130,17 @@ public class DDRCoreDataDocument {
     /// :param: storeURL NSURL for the SQLite store; pass nil to use an in memory store
     /// :param: modelURL NSURL for the CoreData object model (i.e., URL to the .momd file package/directory)
     /// :param: options to pass when creating the persistent store coordinator; if pass nil, it uses [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true] for automatic migration; pass an empty dictionary [ : ] if want no options
-    /// :param: completionClosure a closure (status: DDROkOrError, doc: DDRCoreDataDocument?
-    /// :post: calls completionClosure with DDROkOrError.OK and the initialized DDRCoreDataDocument if success. otherwise completionClosure is called with DDROkOrError.ErrorString and doc is nil
+    /// :param: completionClosure a closure (status: DDRCoreDataSaveOrError, doc: DDRCoreDataDocument?
+    /// :post: calls completionClosure with DDRCoreDataSaveOrError.OK and the initialized DDRCoreDataDocument if success. otherwise completionClosure is called with DDRCoreDataSaveOrError.ErrorString and doc is nil
     public class func createInBackgroundWithCompletionHandler(storeURL: NSURL?, modelURL: NSURL, options : [NSObject : AnyObject]! = nil, completionClosure: DDRCoreDataDocumentCompletionClosure? = nil) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
             let doc = DDRCoreDataDocument(storeURL: storeURL, modelURL: modelURL, options: options)
-            let status : DDROkOrError
+            let status : DDRCoreDataSaveOrError
             if doc == nil {
-                status = DDROkOrError.ErrorString("Could not create DDRCoreDataDocument")
+                status = DDRCoreDataSaveOrError.ErrorString("Could not create DDRCoreDataDocument")
             }
             else {
-                status = DDROkOrError.Ok
+                status = DDRCoreDataSaveOrError.SaveOkHadChanges(true)
             }
             dispatch_sync(dispatch_get_main_queue(), { () -> Void in
                 completionClosure?(status: status, doc: doc)
@@ -152,10 +152,10 @@ public class DDRCoreDataDocument {
     ///
     /// :param: wait true if want to wait for save to persistent store to complete; false if want to return as soon as main context saves to private context
     ///
-    /// :returns: DDROkOrError.Ok if save succeeds; DDROkOrError.Error otherwise
-    public func saveContextAndWait(wait: Bool) -> DDROkOrError {
+    /// :returns: DDRCoreDataSaveOrError.Ok if save succeeds; DDRCoreDataSaveOrError.Error otherwise
+    public func saveContextAndWait(wait: Bool) -> DDRCoreDataSaveOrError {
         if mainQueueMOC == nil {
-            return DDROkOrError.ErrorString("no NSManagedObjectContext")
+            return DDRCoreDataSaveOrError.ErrorString("no NSManagedObjectContext")
         }
 
         var error: NSError!
@@ -187,9 +187,9 @@ public class DDRCoreDataDocument {
             }
         }
 
+        var hasChanges = false
         // save changes from privateMOC to persistent store
         if !(failed) {
-            var hasChanges = false
             privateMOC.performBlockAndWait() {
                 hasChanges = self.privateMOC.hasChanges
             }
@@ -204,9 +204,9 @@ public class DDRCoreDataDocument {
         }
 
         if failed {
-            return DDROkOrError.Error(error)
+            return DDRCoreDataSaveOrError.Error(error)
         } else {
-            return DDROkOrError.Ok
+            return DDRCoreDataSaveOrError.SaveOkHadChanges(hasChanges)
         }
     }
 

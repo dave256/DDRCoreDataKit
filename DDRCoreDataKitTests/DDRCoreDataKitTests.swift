@@ -10,11 +10,11 @@ import XCTest
 import CoreData
 import DDRCoreDataKit
 
-func checkSaveError(status: DDROkOrError, shouldBeOk: Bool = true) {
+func checkSaveError(status: DDRCoreDataSaveOrError, shouldBeOk: Bool = true) {
 
     var ok: Bool = true
     switch status {
-    case .Ok:
+    case .SaveOkHadChanges(let hadChanges):
         if !shouldBeOk {
             XCTFail("save worked when it should have failed")
         }
