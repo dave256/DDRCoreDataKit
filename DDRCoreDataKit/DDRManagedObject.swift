@@ -41,21 +41,21 @@ public class DDRManagedObject: NSManagedObject {
         return nil // NSEntityDescription.entityForName(self.entityName(), inManagedObjectContext: managedObjectContext);
     }
 
-    /// :returns: a NSFetchRequest for entities (your subclass)
+    /// - returns: a NSFetchRequest for entities (your subclass)
     public class func fetchRequest() -> NSFetchRequest {
         return NSFetchRequest(entityName: entityName())
     }
 
     /// get objects of this entity that match predicate and sorted by sort descriptors
     ///
-    /// :param: predicate the NSPredicate to limit which objects are returned
-    /// :param: sortDescriptors array of NSSortDescriptors to use to sort the returned array
-    /// :param: inManagedObjectContext the NSManagedObjectContext to use
-    /// :returns: array of instances that match pedicate sorted by sortDescriptors
+    /// - parameter predicate: the NSPredicate to limit which objects are returned
+    /// - parameter sortDescriptors: array of NSSortDescriptors to use to sort the returned array
+    /// - parameter inManagedObjectContext: the NSManagedObjectContext to use
+    /// - returns: array of instances that match pedicate sorted by sortDescriptors
     public class func allInstancesWithPredicate(predicate: NSPredicate?, sortDescriptors : [NSSortDescriptor]?, inManagedObjectContext moc: NSManagedObjectContext) -> [AnyObject]! {
 
         // create a new fetch request using instance method
-        var request = fetchRequest()
+        let request = fetchRequest()
 
         // set fetch request predicte if passed in
         if let pred = predicate {
@@ -70,7 +70,7 @@ public class DDRManagedObject: NSManagedObject {
         // execute request
         let (results, executeError) = moc.executeFetchRequest(request)
         if let error = executeError {
-            println("Error loading \(request) \(predicate) \(error)")
+            print("Error loading \(request) \(predicate) \(error)")
         }
 
         // return array of NSManagedObjects (array of your subclass of NSManagedObjects)
@@ -79,17 +79,17 @@ public class DDRManagedObject: NSManagedObject {
 
     /// get objects of this entity that match predicate
     ///
-    /// :param: predicate the NSPredicate to limit which objects are returned
-    /// :param: inManagedObjectContext the NSManagedObjectContext to use
-    /// :returns: array of instances that match pedicate sorted by sortDescriptors
+    /// - parameter predicate: the NSPredicate to limit which objects are returned
+    /// - parameter inManagedObjectContext: the NSManagedObjectContext to use
+    /// - returns: array of instances that match pedicate sorted by sortDescriptors
     public class func allInstancesWithPredicate(predicate: NSPredicate?, inManagedObjectContext moc: NSManagedObjectContext) -> [AnyObject]! {
         return allInstancesWithPredicate(predicate, sortDescriptors: nil, inManagedObjectContext: moc)
     }
 
     /// get all objects of this entity
     ///
-    /// :param: inManagedObjectContext the NSManagedObjectContext to use
-    /// :returns: array of instances that match pedicate sorted by sortDescriptors
+    /// - parameter inManagedObjectContext: the NSManagedObjectContext to use
+    /// - returns: array of instances that match pedicate sorted by sortDescriptors
     public class func allInstances(managedObjectContext moc : NSManagedObjectContext) -> [AnyObject]! {
         return self.allInstancesWithPredicate(nil, sortDescriptors: nil, inManagedObjectContext: moc)
     }
@@ -97,8 +97,8 @@ public class DDRManagedObject: NSManagedObject {
     /// returns an NSManagedObject for the same object using the specifed managedObjectContext (or nil if non-temporary objectID)
     ///
     /// :pre: this NSManagedObject has a non-temporary objectID (otherwise returns nil)
-    /// :param: managedObjectContext the managedObjectContext to get the duplicate object on
-    /// :returns: an NSManagedObject for the same object using the specifed managedObjectContext (or nil if non-temporary objectID)
+    /// - parameter managedObjectContext: the managedObjectContext to get the duplicate object on
+    /// - returns: an NSManagedObject for the same object using the specifed managedObjectContext (or nil if non-temporary objectID)
     public func sameManagedObjectUsingManagedObjectContext(managedObjectContext otherMoc: NSManagedObjectContext) -> NSManagedObject? {
         if (self.managedObjectContext!.isEqual(otherMoc)) {
             #if DEBUG
@@ -109,13 +109,20 @@ public class DDRManagedObject: NSManagedObject {
 
         let objectID = self.objectID
         if objectID.temporaryID {
-            println("cannot use objectID that is temporaryID; must save context first")
+            print("cannot use objectID that is temporaryID; must save context first")
             return nil
         }
         var otherObject: NSManagedObject? = nil
         otherMoc.performBlockAndWait {
             var error: NSError? = nil
-            otherObject = otherMoc.existingObjectWithID(objectID, error: &error)
+            do {
+                otherObject = try otherMoc.existingObjectWithID(objectID)
+            } catch let error1 as NSError {
+                error = error1
+                otherObject = nil
+            } catch {
+                fatalError()
+            }
             if error != nil {
                 otherObject = nil
                 #if DEBUG

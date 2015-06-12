@@ -1,3 +1,5 @@
+import Foundation
+
 @objc(Person) public
 class Person: _Person {
 

@@ -1,3 +1,5 @@
+import Foundation
+
 @objc(SyncedPerson) public
 class SyncedPerson: _SyncedPerson {
 

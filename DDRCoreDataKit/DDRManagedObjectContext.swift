@@ -12,7 +12,13 @@ public extension NSManagedObjectContext {
 
     public func executeFetchRequest(request: NSFetchRequest) -> ([AnyObject]?, NSError?) {
         var error: NSError? = nil
-        let items = executeFetchRequest(request, error: &error)
+        let items: [AnyObject]?
+        do {
+            items = try executeFetchRequest(request)
+        } catch let error1 as NSError {
+            error = error1
+            items = nil
+        }
         return (items, error)
     }
 }
