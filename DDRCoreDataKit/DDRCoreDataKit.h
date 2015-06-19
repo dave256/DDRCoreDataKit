@@ -2,8 +2,8 @@
 //  DDRCoreDataKit.h
 //  DDRCoreDataKit
 //
-//  Created by David M Reed on 4/17/15.
-//  Copyright (c) 2015 David M Reed. All rights reserved.
+//  Created by David Reed on 6/19/15.
+//  Copyright © 2015 David Reed. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

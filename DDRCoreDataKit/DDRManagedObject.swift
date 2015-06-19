@@ -2,60 +2,103 @@
 //  DDRManagedObject.swift
 //  DDRCoreDataKit
 //
-//  Created by David Reed on 6/13/14.
-//  Copyright (c) 2014 David Reed. All rights reserved.
+//  Created by David Reed on 6/19/15.
+//  Copyright © 2015 David Reed. All rights reserved.
 //
 
 import CoreData
 
-/**
-DDRManagedObject is a standard subclass of NSManagedObject with convenience methods for creating new instances and fetch requests
 
-it is intended for use with mogenerator such that the mogenerator created base class (the one that starts with an _) will subclass DDRManagedObject
+/// DDRManagedObject protocol with default implementation of methods for creating and fetching instances of a NSManagedObject subclass
+/// #Note
+/// here is what the sample subclass would look like:
+/// ```@objc(Person)
+/// public class Person: NSManagedObject, DDRManagedObject {
+///
+///    public static func entityName() -> String {
+///        return "Person"
+///    }
+///
+///    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext!) {
+///        super.init(entity: entity, insertIntoManagedObjectContext: context)
+///    }
+///
+///    public required convenience init(managedObjectContext: NSManagedObjectContext!) {
+///        let entity = self.dynamicType.entity(managedObjectContext)
+///        self.init(entity: entity, insertIntoManagedObjectContext: managedObjectContext)
+///    }
+///
+///}
+public protocol DDRManagedObject {
 
-put code such as the following in a Run Script build phase and move it before the compile step
-If you manually added the DDRManagedObject.swift file to your project, you will want to use something like:
-cd "$PROJECT_DIR/$TARGET_NAME" && /Users/dreed/bin/mogenerator --swift -m "$TARGET_NAME".xcdatamodeld --base-class DDRManagedObject --output-dir ./ModelObjects
+    /// name of the NSManagedObject subclass for this entity; no default implementation is provided
+    static func entityName() -> String
 
-If you add the DDRCoreDataKit project as a module to your Xcode workspace, you will want to use something like:
-cd "$PROJECT_DIR/$TARGET_NAME" && $HOME/bin/mogenerator --swift -m "$TARGET_NAME".xcdatamodeld --base-class DDRManagedObject --base-class-import DDRCoreDataKit  --output-dir ./ModelObjects
+    /// NSEntityDescription for the NSManagedObject subclass for this entity
+    static func entity(managedObjectContext: NSManagedObjectContext!) -> NSEntityDescription!
 
-note: uses own version of mogenerator in https://github.com/dave256/mogenerator/tree/swift-public
-so that --base-class-import DDRCoreDataKit adds the statment "import DDRCoreDataKit" to the machine generated file (one that starts with an underscore)
+    /// NSFetchRequest for the NSManagedObject subclass for this entity
+    static func fetchRequest() -> NSFetchRequest
 
-if you intend to use without mogenerator (not recommended), your subclass must use the syntax:
+    /// allInstancesInManagedObjectContext get objects of this entity that match predicate and sorted by sort descriptors
+    /// - parameter moc: the NSManagedObjectContext to use
+    /// - parameter predicate: the NSPredicate to limit which objects are returned
+    /// - parameter sortedBy: array of NSSortDescriptor to use to sort the returned array
+    /// - returns: array of instances that match pedicate sorted by sortDescriptors
+    static func instancesInManagedObjectContext(moc: NSManagedObjectContext, withPredicate predicate: NSPredicate?, sortedBy sortDescriptors : [NSSortDescriptor]?, catchError: Bool) throws -> [AnyObject]
 
-@objc(Person) class Person : DDRManagedObject
+    /// get objects of this entity that match predicate
+    ///
+    /// - parameter moc: the NSManagedObjectContext to use
+    /// - parameter predicate: [NSManagedObject] match predicate
+    /// - returns: array of [NSManagedObject]
+    static func instancesInManagedObjectContext(moc: NSManagedObjectContext, withPredicate predicate: NSPredicate?, catchError: Bool) throws -> [AnyObject]
 
-otherwise entityName method will not work
-*/
-public class DDRManagedObject: NSManagedObject {
+    /// get objects of this entity sorted by specified sort descriptors
+    ///
+    /// - parameter moc: the NSManagedObjectContext to use
+    /// - parameter predicate: [NSManagedObject] match predicate
+    /// - returns: array of [NSManagedObject]
+    static func allInstancesInManagedObjectContext(moc: NSManagedObjectContext, sortedBy sortDescriptors: [NSSortDescriptor], catchError: Bool) throws -> [AnyObject]
 
-    /// overriden by MOGenerator generated base class
-    public class func entityName() -> String {
-        return ""
+    /// get all objects of this entity
+    ///
+    /// - parameter moc the NSManagedObjectContext to use
+    /// - returns: array of [NSManagedObject]
+    static func allInstancesInManagedObjectContext(moc : NSManagedObjectContext, catchError: Bool) throws -> [AnyObject]!
+
+    /// an NSManagedObject for the same object using the specifed managedObjectContext (or nil if non-temporary objectID)
+    ///
+    /// - precondition: this NSManagedObject has a non-temporary objectID (otherwise returns nil)
+    /// - parameter managedObjectContext: the managedObjectContext to get the duplicate object on
+    /// - returns: an NSManagedObject for the same object using the specifed managedObjectContext (or nil if non-temporary objectID)
+    func sameManagedObjectUsingManagedObjectContext(managedObjectContext otherMoc: NSManagedObjectContext) -> NSManagedObject?
+
+    // need these so the fault implementation of the following method compiles:
+    // sameManagedObjectUsingManagedObjectContext(managedObjectContext otherMoc: NSManagedObjectContext) -> NSManagedObject?
+    // since DDRManagedObject will be a protocol for NSManagedObject subclasses, these methods will automatically be provided
+    var managedObjectContext: NSManagedObjectContext? { get }
+    var objectID: NSManagedObjectID { get }
+}
+
+//----------------------------------------------------------------------
+// MARK: default implementation of protocol methods
+
+/// provide default implementation of DDRManagedObject protocol methods
+public extension DDRManagedObject {
+
+    public static func entity(managedObjectContext: NSManagedObjectContext!) -> NSEntityDescription! {
+        return NSEntityDescription.entityForName(entityName(), inManagedObjectContext: managedObjectContext);
     }
 
-    /// overriden by MOGenerator generated base class
-    public class func entity(managedObjectContext: NSManagedObjectContext!) -> NSEntityDescription! {
-        return nil // NSEntityDescription.entityForName(self.entityName(), inManagedObjectContext: managedObjectContext);
-    }
-
-    /// :returns: a NSFetchRequest for entities (your subclass)
-    public class func fetchRequest() -> NSFetchRequest {
+    public static func fetchRequest() -> NSFetchRequest {
         return NSFetchRequest(entityName: entityName())
     }
 
-    /// get objects of this entity that match predicate and sorted by sort descriptors
-    ///
-    /// :param: predicate the NSPredicate to limit which objects are returned
-    /// :param: sortDescriptors array of NSSortDescriptors to use to sort the returned array
-    /// :param: inManagedObjectContext the NSManagedObjectContext to use
-    /// :returns: array of instances that match pedicate sorted by sortDescriptors
-    public class func allInstancesWithPredicate(predicate: NSPredicate?, sortDescriptors : [NSSortDescriptor]?, inManagedObjectContext moc: NSManagedObjectContext) -> [AnyObject]! {
+    public static func instancesInManagedObjectContext(moc: NSManagedObjectContext, withPredicate predicate: NSPredicate?, sortedBy sortDescriptors : [NSSortDescriptor]?, catchError: Bool = true) throws -> [AnyObject] {
 
         // create a new fetch request using instance method
-        var request = fetchRequest()
+        let request = fetchRequest()
 
         // set fetch request predicte if passed in
         if let pred = predicate {
@@ -67,55 +110,57 @@ public class DDRManagedObject: NSManagedObject {
             request.sortDescriptors = sorters
         }
 
-        // execute request
-        let (results, executeError) = moc.executeFetchRequest(request)
-        if let error = executeError {
-            println("Error loading \(request) \(predicate) \(error)")
+        // if parameter indicates we should catch any errors, catch it and print the error
+        if catchError {
+            // execute request
+            do {
+                return try moc.executeFetchRequest(request)
+            }
+            catch let error as NSError {
+                print("Error loading \(request) \(predicate) \(error)")
+            }
         }
 
-        // return array of NSManagedObjects (array of your subclass of NSManagedObjects)
-        return results
+        // if not catching error, execute here and return the result of the fetch request
+        return try moc.executeFetchRequest(request)
     }
 
-    /// get objects of this entity that match predicate
-    ///
-    /// :param: predicate the NSPredicate to limit which objects are returned
-    /// :param: inManagedObjectContext the NSManagedObjectContext to use
-    /// :returns: array of instances that match pedicate sorted by sortDescriptors
-    public class func allInstancesWithPredicate(predicate: NSPredicate?, inManagedObjectContext moc: NSManagedObjectContext) -> [AnyObject]! {
-        return allInstancesWithPredicate(predicate, sortDescriptors: nil, inManagedObjectContext: moc)
+    public static func instancesInManagedObjectContext(moc: NSManagedObjectContext, withPredicate predicate: NSPredicate?, catchError: Bool = true) throws -> [AnyObject] {
+        return try instancesInManagedObjectContext(moc, withPredicate: predicate, sortedBy: nil, catchError: catchError)
     }
 
-    /// get all objects of this entity
-    ///
-    /// :param: inManagedObjectContext the NSManagedObjectContext to use
-    /// :returns: array of instances that match pedicate sorted by sortDescriptors
-    public class func allInstances(managedObjectContext moc : NSManagedObjectContext) -> [AnyObject]! {
-        return self.allInstancesWithPredicate(nil, sortDescriptors: nil, inManagedObjectContext: moc)
+    public static func allInstancesInManagedObjectContext(moc: NSManagedObjectContext, sortedBy sortDescriptors: [NSSortDescriptor], catchError: Bool = true) throws -> [AnyObject] {
+        return try instancesInManagedObjectContext(moc, withPredicate: nil, sortedBy: sortDescriptors, catchError: catchError)
     }
 
-    /// returns an NSManagedObject for the same object using the specifed managedObjectContext (or nil if non-temporary objectID)
-    ///
-    /// :pre: this NSManagedObject has a non-temporary objectID (otherwise returns nil)
-    /// :param: managedObjectContext the managedObjectContext to get the duplicate object on
-    /// :returns: an NSManagedObject for the same object using the specifed managedObjectContext (or nil if non-temporary objectID)
+    public static func allInstancesInManagedObjectContext(moc : NSManagedObjectContext, catchError: Bool = true) throws -> [AnyObject]! {
+        return try instancesInManagedObjectContext(moc, withPredicate: nil, sortedBy: nil, catchError: catchError)
+    }
+
     public func sameManagedObjectUsingManagedObjectContext(managedObjectContext otherMoc: NSManagedObjectContext) -> NSManagedObject? {
         if (self.managedObjectContext!.isEqual(otherMoc)) {
             #if DEBUG
                 println("cannot use same managedObjectContext or will deadlock so return self")
             #endif
-            return self
+            return nil
         }
 
         let objectID = self.objectID
         if objectID.temporaryID {
-            println("cannot use objectID that is temporaryID; must save context first")
+            print("cannot use objectID that is temporaryID; must save context first")
             return nil
         }
         var otherObject: NSManagedObject? = nil
         otherMoc.performBlockAndWait {
             var error: NSError? = nil
-            otherObject = otherMoc.existingObjectWithID(objectID, error: &error)
+            do {
+                otherObject = try otherMoc.existingObjectWithID(objectID)
+            } catch let error1 as NSError {
+                error = error1
+                otherObject = nil
+            } catch {
+                fatalError()
+            }
             if error != nil {
                 otherObject = nil
                 #if DEBUG
@@ -123,7 +168,7 @@ public class DDRManagedObject: NSManagedObject {
                 #endif
             }
         }
-
         return otherObject
     }
+
 }
