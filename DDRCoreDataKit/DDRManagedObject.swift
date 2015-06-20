@@ -79,6 +79,8 @@ public protocol DDRManagedObject {
     // since DDRManagedObject will be a protocol for NSManagedObject subclasses, these methods will automatically be provided
     var managedObjectContext: NSManagedObjectContext? { get }
     var objectID: NSManagedObjectID { get }
+
+    static func deleteObjectAndProcessPendingChanges(obj: NSManagedObject)
 }
 
 //----------------------------------------------------------------------
@@ -140,7 +142,7 @@ public extension DDRManagedObject {
     public func sameManagedObjectUsingManagedObjectContext(managedObjectContext otherMoc: NSManagedObjectContext) -> NSManagedObject? {
         if (self.managedObjectContext!.isEqual(otherMoc)) {
             #if DEBUG
-                println("cannot use same managedObjectContext or will deadlock so return self")
+                print("cannot use same managedObjectContext or will deadlock so return self")
             #endif
             return nil
         }
@@ -164,11 +166,17 @@ public extension DDRManagedObject {
             if error != nil {
                 otherObject = nil
                 #if DEBUG
-                    println("Error: existingObjectWithID \(error!.localizedDescription) \(error!.userInfo!)")
+                    print("Error: existingObjectWithID \(error!.localizedDescription) \(error!.userInfo!)")
                 #endif
             }
         }
         return otherObject
+    }
+
+    static func deleteObjectAndProcessPendingChanges(obj: NSManagedObject) {
+        let moc = obj.managedObjectContext!
+        moc.deleteObject(obj)
+        moc.processPendingChanges()
     }
 
 }
