@@ -7,275 +7,124 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0305BFBC1AFAC415009F0636 /* DDRCoreDataKitMac.h in Headers */ = {isa = PBXBuildFile; fileRef = 0305BFBB1AFAC415009F0636 /* DDRCoreDataKitMac.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0305BFC21AFAC415009F0636 /* DDRCoreDataKitMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0305BFB71AFAC415009F0636 /* DDRCoreDataKitMac.framework */; };
-		0305BFC91AFAC416009F0636 /* DDRCoreDataKitMacTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0305BFC81AFAC415009F0636 /* DDRCoreDataKitMacTests.swift */; };
-		0305BFD31AFAC7B8009F0636 /* DDRCoreDataDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0326D1C71AE17BF700170A3D /* DDRCoreDataDocument.swift */; };
-		0305BFD41AFAC7B8009F0636 /* DDRManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0326D1C81AE17BF700170A3D /* DDRManagedObject.swift */; };
-		0305BFD51AFAC7B8009F0636 /* DDRSyncedManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0326D1CA1AE17BF700170A3D /* DDRSyncedManagedObject.swift */; };
-		0305BFD61AFAC7B8009F0636 /* DDRManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0326D1C91AE17BF700170A3D /* DDRManagedObjectContext.swift */; };
-		0326D1B11AE17BCA00170A3D /* DDRCoreDataKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 0326D1B01AE17BCA00170A3D /* DDRCoreDataKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0326D1B71AE17BCA00170A3D /* DDRCoreDataKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0326D1AB1AE17BCA00170A3D /* DDRCoreDataKit.framework */; };
-		0326D1BE1AE17BCA00170A3D /* DDRCoreDataKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0326D1BD1AE17BCA00170A3D /* DDRCoreDataKitTests.swift */; };
-		0326D1CB1AE17BF700170A3D /* DDRCoreDataDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0326D1C71AE17BF700170A3D /* DDRCoreDataDocument.swift */; };
-		0326D1CC1AE17BF700170A3D /* DDRManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0326D1C81AE17BF700170A3D /* DDRManagedObject.swift */; };
-		0326D1CD1AE17BF700170A3D /* DDRManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0326D1C91AE17BF700170A3D /* DDRManagedObjectContext.swift */; };
-		0326D1CE1AE17BF700170A3D /* DDRSyncedManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0326D1CA1AE17BF700170A3D /* DDRSyncedManagedObject.swift */; };
-		0326D1D41AE17C7100170A3D /* _Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0326D1D01AE17C7100170A3D /* _Person.swift */; };
-		0326D1D51AE17C7100170A3D /* _SyncedPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0326D1D11AE17C7100170A3D /* _SyncedPerson.swift */; };
-		0326D1D61AE17C7100170A3D /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0326D1D21AE17C7100170A3D /* Person.swift */; };
-		0326D1D71AE17C7100170A3D /* SyncedPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0326D1D31AE17C7100170A3D /* SyncedPerson.swift */; };
-		0326D1DC1AE1E52A00170A3D /* DDRCoreDataKitTests.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 0326D1D91AE17E2300170A3D /* DDRCoreDataKitTests.xcdatamodeld */; };
+		0394DA621B3487E400EA5731 /* DDRCoreDataKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 0394DA611B3487E400EA5731 /* DDRCoreDataKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0394DA691B3487E500EA5731 /* DDRCoreDataKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0394DA5E1B3487E400EA5731 /* DDRCoreDataKit.framework */; };
+		0394DA6E1B3487E500EA5731 /* DDRCoreDataKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0394DA6D1B3487E500EA5731 /* DDRCoreDataKitTests.swift */; };
+		0394DA791B34882100EA5731 /* DDRManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0394DA781B34882100EA5731 /* DDRManagedObject.swift */; };
+		0394DA7D1B34969000EA5731 /* DDRCoreDataDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0394DA7C1B34969000EA5731 /* DDRCoreDataDocument.swift */; };
+		0394DAB61B34A6C000EA5731 /* DDRCoreDataKitTests.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0394DA7E1B349CBD00EA5731 /* DDRCoreDataKitTests.xcdatamodeld */; };
+		0394DABB1B34A7FD00EA5731 /* Person+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0394DAB91B34A7FD00EA5731 /* Person+CoreDataProperties.swift */; };
+		0394DABC1B34A7FD00EA5731 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0394DABA1B34A7FD00EA5731 /* Person.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0305BFC31AFAC415009F0636 /* PBXContainerItemProxy */ = {
+		0394DA6A1B3487E500EA5731 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 0326D1A21AE17BCA00170A3D /* Project object */;
+			containerPortal = 0394DA551B3487E400EA5731 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0305BFB61AFAC415009F0636;
-			remoteInfo = DDRCoreDataKitMac;
-		};
-		0326D1B81AE17BCA00170A3D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0326D1A21AE17BCA00170A3D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0326D1AA1AE17BCA00170A3D;
+			remoteGlobalIDString = 0394DA5D1B3487E400EA5731;
 			remoteInfo = DDRCoreDataKit;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0305BFB71AFAC415009F0636 /* DDRCoreDataKitMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DDRCoreDataKitMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0305BFBA1AFAC415009F0636 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0305BFBB1AFAC415009F0636 /* DDRCoreDataKitMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDRCoreDataKitMac.h; sourceTree = "<group>"; };
-		0305BFC11AFAC415009F0636 /* DDRCoreDataKitMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DDRCoreDataKitMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0305BFC71AFAC415009F0636 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0305BFC81AFAC415009F0636 /* DDRCoreDataKitMacTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDRCoreDataKitMacTests.swift; sourceTree = "<group>"; };
-		0326D1AB1AE17BCA00170A3D /* DDRCoreDataKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DDRCoreDataKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0326D1AF1AE17BCA00170A3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0326D1B01AE17BCA00170A3D /* DDRCoreDataKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDRCoreDataKit.h; sourceTree = "<group>"; };
-		0326D1B61AE17BCA00170A3D /* DDRCoreDataKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DDRCoreDataKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0326D1BC1AE17BCA00170A3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0326D1BD1AE17BCA00170A3D /* DDRCoreDataKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDRCoreDataKitTests.swift; sourceTree = "<group>"; };
-		0326D1C71AE17BF700170A3D /* DDRCoreDataDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDRCoreDataDocument.swift; sourceTree = "<group>"; };
-		0326D1C81AE17BF700170A3D /* DDRManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDRManagedObject.swift; sourceTree = "<group>"; };
-		0326D1C91AE17BF700170A3D /* DDRManagedObjectContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDRManagedObjectContext.swift; sourceTree = "<group>"; };
-		0326D1CA1AE17BF700170A3D /* DDRSyncedManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDRSyncedManagedObject.swift; sourceTree = "<group>"; };
-		0326D1D01AE17C7100170A3D /* _Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = _Person.swift; sourceTree = "<group>"; };
-		0326D1D11AE17C7100170A3D /* _SyncedPerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = _SyncedPerson.swift; sourceTree = "<group>"; };
-		0326D1D21AE17C7100170A3D /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
-		0326D1D31AE17C7100170A3D /* SyncedPerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncedPerson.swift; sourceTree = "<group>"; };
-		0326D1DA1AE17E2300170A3D /* DDRCoreDataKitTests.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DDRCoreDataKitTests.xcdatamodel; sourceTree = "<group>"; };
+		0394DA5E1B3487E400EA5731 /* DDRCoreDataKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DDRCoreDataKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0394DA611B3487E400EA5731 /* DDRCoreDataKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDRCoreDataKit.h; sourceTree = "<group>"; };
+		0394DA631B3487E400EA5731 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0394DA681B3487E500EA5731 /* DDRCoreDataKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DDRCoreDataKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0394DA6D1B3487E500EA5731 /* DDRCoreDataKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDRCoreDataKitTests.swift; sourceTree = "<group>"; };
+		0394DA6F1B3487E500EA5731 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0394DA781B34882100EA5731 /* DDRManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDRManagedObject.swift; sourceTree = "<group>"; };
+		0394DA7A1B348B6000EA5731 /* DDRSyncedManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDRSyncedManagedObject.swift; sourceTree = "<group>"; };
+		0394DA7C1B34969000EA5731 /* DDRCoreDataDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDRCoreDataDocument.swift; sourceTree = "<group>"; };
+		0394DA7F1B349CBD00EA5731 /* DDRCoreDataKitTests.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DDRCoreDataKitTests.xcdatamodel; sourceTree = "<group>"; };
+		0394DAB91B34A7FD00EA5731 /* Person+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0394DABA1B34A7FD00EA5731 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		0305BFB31AFAC415009F0636 /* Frameworks */ = {
+		0394DA5A1B3487E400EA5731 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0305BFBE1AFAC415009F0636 /* Frameworks */ = {
+		0394DA651B3487E500EA5731 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0305BFC21AFAC415009F0636 /* DDRCoreDataKitMac.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0326D1A71AE17BCA00170A3D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0326D1B31AE17BCA00170A3D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0326D1B71AE17BCA00170A3D /* DDRCoreDataKit.framework in Frameworks */,
+				0394DA691B3487E500EA5731 /* DDRCoreDataKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0305BFB81AFAC415009F0636 /* DDRCoreDataKitMac */ = {
+		0394DA541B3487E400EA5731 = {
 			isa = PBXGroup;
 			children = (
-				0305BFBB1AFAC415009F0636 /* DDRCoreDataKitMac.h */,
-				0305BFB91AFAC415009F0636 /* Supporting Files */,
-			);
-			path = DDRCoreDataKitMac;
-			sourceTree = "<group>";
-		};
-		0305BFB91AFAC415009F0636 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				0305BFBA1AFAC415009F0636 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		0305BFC51AFAC415009F0636 /* DDRCoreDataKitMacTests */ = {
-			isa = PBXGroup;
-			children = (
-				0305BFC81AFAC415009F0636 /* DDRCoreDataKitMacTests.swift */,
-				0305BFC61AFAC415009F0636 /* Supporting Files */,
-			);
-			path = DDRCoreDataKitMacTests;
-			sourceTree = "<group>";
-		};
-		0305BFC61AFAC415009F0636 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				0305BFC71AFAC415009F0636 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		0326D1A11AE17BCA00170A3D = {
-			isa = PBXGroup;
-			children = (
-				0326D1AD1AE17BCA00170A3D /* DDRCoreDataKit */,
-				0326D1BA1AE17BCA00170A3D /* DDRCoreDataKitTests */,
-				0305BFB81AFAC415009F0636 /* DDRCoreDataKitMac */,
-				0305BFC51AFAC415009F0636 /* DDRCoreDataKitMacTests */,
-				0326D1AC1AE17BCA00170A3D /* Products */,
+				0394DA601B3487E400EA5731 /* DDRCoreDataKit */,
+				0394DA6C1B3487E500EA5731 /* DDRCoreDataKitTests */,
+				0394DA5F1B3487E400EA5731 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		0326D1AC1AE17BCA00170A3D /* Products */ = {
+		0394DA5F1B3487E400EA5731 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0326D1AB1AE17BCA00170A3D /* DDRCoreDataKit.framework */,
-				0326D1B61AE17BCA00170A3D /* DDRCoreDataKitTests.xctest */,
-				0305BFB71AFAC415009F0636 /* DDRCoreDataKitMac.framework */,
-				0305BFC11AFAC415009F0636 /* DDRCoreDataKitMacTests.xctest */,
+				0394DA5E1B3487E400EA5731 /* DDRCoreDataKit.framework */,
+				0394DA681B3487E500EA5731 /* DDRCoreDataKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0326D1AD1AE17BCA00170A3D /* DDRCoreDataKit */ = {
+		0394DA601B3487E400EA5731 /* DDRCoreDataKit */ = {
 			isa = PBXGroup;
 			children = (
-				0326D1C71AE17BF700170A3D /* DDRCoreDataDocument.swift */,
-				0326D1C81AE17BF700170A3D /* DDRManagedObject.swift */,
-				0326D1CA1AE17BF700170A3D /* DDRSyncedManagedObject.swift */,
-				0326D1C91AE17BF700170A3D /* DDRManagedObjectContext.swift */,
-				0326D1B01AE17BCA00170A3D /* DDRCoreDataKit.h */,
-				0326D1AE1AE17BCA00170A3D /* Supporting Files */,
+				0394DA781B34882100EA5731 /* DDRManagedObject.swift */,
+				0394DA7A1B348B6000EA5731 /* DDRSyncedManagedObject.swift */,
+				0394DA7C1B34969000EA5731 /* DDRCoreDataDocument.swift */,
+				0394DA611B3487E400EA5731 /* DDRCoreDataKit.h */,
+				0394DA631B3487E400EA5731 /* Info.plist */,
 			);
 			path = DDRCoreDataKit;
 			sourceTree = "<group>";
 		};
-		0326D1AE1AE17BCA00170A3D /* Supporting Files */ = {
+		0394DA6C1B3487E500EA5731 /* DDRCoreDataKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				0326D1AF1AE17BCA00170A3D /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		0326D1BA1AE17BCA00170A3D /* DDRCoreDataKitTests */ = {
-			isa = PBXGroup;
-			children = (
-				0326D1CF1AE17C7100170A3D /* ModelObjects */,
-				0326D1BD1AE17BCA00170A3D /* DDRCoreDataKitTests.swift */,
-				0326D1BB1AE17BCA00170A3D /* Supporting Files */,
+				0394DA6D1B3487E500EA5731 /* DDRCoreDataKitTests.swift */,
+				0394DAB91B34A7FD00EA5731 /* Person+CoreDataProperties.swift */,
+				0394DABA1B34A7FD00EA5731 /* Person.swift */,
+				0394DA6F1B3487E500EA5731 /* Info.plist */,
+				0394DA7E1B349CBD00EA5731 /* DDRCoreDataKitTests.xcdatamodeld */,
 			);
 			path = DDRCoreDataKitTests;
-			sourceTree = "<group>";
-		};
-		0326D1BB1AE17BCA00170A3D /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				0326D1BC1AE17BCA00170A3D /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		0326D1CF1AE17C7100170A3D /* ModelObjects */ = {
-			isa = PBXGroup;
-			children = (
-				0326D1D91AE17E2300170A3D /* DDRCoreDataKitTests.xcdatamodeld */,
-				0326D1D01AE17C7100170A3D /* _Person.swift */,
-				0326D1D11AE17C7100170A3D /* _SyncedPerson.swift */,
-				0326D1D21AE17C7100170A3D /* Person.swift */,
-				0326D1D31AE17C7100170A3D /* SyncedPerson.swift */,
-			);
-			path = ModelObjects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		0305BFB41AFAC415009F0636 /* Headers */ = {
+		0394DA5B1B3487E400EA5731 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0305BFBC1AFAC415009F0636 /* DDRCoreDataKitMac.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0326D1A81AE17BCA00170A3D /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0326D1B11AE17BCA00170A3D /* DDRCoreDataKit.h in Headers */,
+				0394DA621B3487E400EA5731 /* DDRCoreDataKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		0305BFB61AFAC415009F0636 /* DDRCoreDataKitMac */ = {
+		0394DA5D1B3487E400EA5731 /* DDRCoreDataKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0305BFCE1AFAC416009F0636 /* Build configuration list for PBXNativeTarget "DDRCoreDataKitMac" */;
+			buildConfigurationList = 0394DA721B3487E500EA5731 /* Build configuration list for PBXNativeTarget "DDRCoreDataKit" */;
 			buildPhases = (
-				0305BFB21AFAC415009F0636 /* Sources */,
-				0305BFB31AFAC415009F0636 /* Frameworks */,
-				0305BFB41AFAC415009F0636 /* Headers */,
-				0305BFB51AFAC415009F0636 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = DDRCoreDataKitMac;
-			productName = DDRCoreDataKitMac;
-			productReference = 0305BFB71AFAC415009F0636 /* DDRCoreDataKitMac.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		0305BFC01AFAC415009F0636 /* DDRCoreDataKitMacTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0305BFCF1AFAC416009F0636 /* Build configuration list for PBXNativeTarget "DDRCoreDataKitMacTests" */;
-			buildPhases = (
-				0305BFBD1AFAC415009F0636 /* Sources */,
-				0305BFBE1AFAC415009F0636 /* Frameworks */,
-				0305BFBF1AFAC415009F0636 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				0305BFC41AFAC415009F0636 /* PBXTargetDependency */,
-			);
-			name = DDRCoreDataKitMacTests;
-			productName = DDRCoreDataKitMacTests;
-			productReference = 0305BFC11AFAC415009F0636 /* DDRCoreDataKitMacTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		0326D1AA1AE17BCA00170A3D /* DDRCoreDataKit */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0326D1C11AE17BCA00170A3D /* Build configuration list for PBXNativeTarget "DDRCoreDataKit" */;
-			buildPhases = (
-				0326D1A61AE17BCA00170A3D /* Sources */,
-				0326D1A71AE17BCA00170A3D /* Frameworks */,
-				0326D1A81AE17BCA00170A3D /* Headers */,
-				0326D1A91AE17BCA00170A3D /* Resources */,
+				0394DA591B3487E400EA5731 /* Sources */,
+				0394DA5A1B3487E400EA5731 /* Frameworks */,
+				0394DA5B1B3487E400EA5731 /* Headers */,
+				0394DA5C1B3487E400EA5731 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -283,261 +132,113 @@
 			);
 			name = DDRCoreDataKit;
 			productName = DDRCoreDataKit;
-			productReference = 0326D1AB1AE17BCA00170A3D /* DDRCoreDataKit.framework */;
+			productReference = 0394DA5E1B3487E400EA5731 /* DDRCoreDataKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		0326D1B51AE17BCA00170A3D /* DDRCoreDataKitTests */ = {
+		0394DA671B3487E500EA5731 /* DDRCoreDataKitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0326D1C41AE17BCA00170A3D /* Build configuration list for PBXNativeTarget "DDRCoreDataKitTests" */;
+			buildConfigurationList = 0394DA751B3487E500EA5731 /* Build configuration list for PBXNativeTarget "DDRCoreDataKitTests" */;
 			buildPhases = (
-				0326D1D81AE17CF700170A3D /* ShellScript */,
-				0326D1B21AE17BCA00170A3D /* Sources */,
-				0326D1B31AE17BCA00170A3D /* Frameworks */,
-				0326D1B41AE17BCA00170A3D /* Resources */,
+				0394DA641B3487E500EA5731 /* Sources */,
+				0394DA651B3487E500EA5731 /* Frameworks */,
+				0394DA661B3487E500EA5731 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				0326D1B91AE17BCA00170A3D /* PBXTargetDependency */,
+				0394DA6B1B3487E500EA5731 /* PBXTargetDependency */,
 			);
 			name = DDRCoreDataKitTests;
 			productName = DDRCoreDataKitTests;
-			productReference = 0326D1B61AE17BCA00170A3D /* DDRCoreDataKitTests.xctest */;
+			productReference = 0394DA681B3487E500EA5731 /* DDRCoreDataKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		0326D1A21AE17BCA00170A3D /* Project object */ = {
+		0394DA551B3487E400EA5731 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
-				ORGANIZATIONNAME = "David M Reed";
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "David Reed";
 				TargetAttributes = {
-					0305BFB61AFAC415009F0636 = {
-						CreatedOnToolsVersion = 6.3.1;
+					0394DA5D1B3487E400EA5731 = {
+						CreatedOnToolsVersion = 7.0;
 					};
-					0305BFC01AFAC415009F0636 = {
-						CreatedOnToolsVersion = 6.3.1;
-					};
-					0326D1AA1AE17BCA00170A3D = {
-						CreatedOnToolsVersion = 6.3;
-					};
-					0326D1B51AE17BCA00170A3D = {
-						CreatedOnToolsVersion = 6.3;
+					0394DA671B3487E500EA5731 = {
+						CreatedOnToolsVersion = 7.0;
 					};
 				};
 			};
-			buildConfigurationList = 0326D1A51AE17BCA00170A3D /* Build configuration list for PBXProject "DDRCoreDataKit" */;
+			buildConfigurationList = 0394DA581B3487E400EA5731 /* Build configuration list for PBXProject "DDRCoreDataKit" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 0326D1A11AE17BCA00170A3D;
-			productRefGroup = 0326D1AC1AE17BCA00170A3D /* Products */;
+			mainGroup = 0394DA541B3487E400EA5731;
+			productRefGroup = 0394DA5F1B3487E400EA5731 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0326D1AA1AE17BCA00170A3D /* DDRCoreDataKit */,
-				0326D1B51AE17BCA00170A3D /* DDRCoreDataKitTests */,
-				0305BFB61AFAC415009F0636 /* DDRCoreDataKitMac */,
-				0305BFC01AFAC415009F0636 /* DDRCoreDataKitMacTests */,
+				0394DA5D1B3487E400EA5731 /* DDRCoreDataKit */,
+				0394DA671B3487E500EA5731 /* DDRCoreDataKitTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		0305BFB51AFAC415009F0636 /* Resources */ = {
+		0394DA5C1B3487E400EA5731 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0305BFBF1AFAC415009F0636 /* Resources */ = {
+		0394DA661B3487E500EA5731 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0326D1A91AE17BCA00170A3D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0326D1B41AE17BCA00170A3D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0326D1DC1AE1E52A00170A3D /* DDRCoreDataKitTests.xcdatamodeld in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		0326D1D81AE17CF700170A3D /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#cd \"$PROJECT_DIR/$TARGET_NAME\" && $HOME/bin/mogenerator --swift -m \"$TARGET_NAME\".xcdatamodeld --base-class DDRManagedObject  --base-class-import DDRCoreDataKit --output-dir ./ModelObjects";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		0305BFB21AFAC415009F0636 /* Sources */ = {
+		0394DA591B3487E400EA5731 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0305BFD31AFAC7B8009F0636 /* DDRCoreDataDocument.swift in Sources */,
-				0305BFD41AFAC7B8009F0636 /* DDRManagedObject.swift in Sources */,
-				0305BFD51AFAC7B8009F0636 /* DDRSyncedManagedObject.swift in Sources */,
-				0305BFD61AFAC7B8009F0636 /* DDRManagedObjectContext.swift in Sources */,
+				0394DA7D1B34969000EA5731 /* DDRCoreDataDocument.swift in Sources */,
+				0394DA791B34882100EA5731 /* DDRManagedObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0305BFBD1AFAC415009F0636 /* Sources */ = {
+		0394DA641B3487E500EA5731 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0305BFC91AFAC416009F0636 /* DDRCoreDataKitMacTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0326D1A61AE17BCA00170A3D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0326D1CB1AE17BF700170A3D /* DDRCoreDataDocument.swift in Sources */,
-				0326D1CD1AE17BF700170A3D /* DDRManagedObjectContext.swift in Sources */,
-				0326D1CC1AE17BF700170A3D /* DDRManagedObject.swift in Sources */,
-				0326D1CE1AE17BF700170A3D /* DDRSyncedManagedObject.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0326D1B21AE17BCA00170A3D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0326D1D41AE17C7100170A3D /* _Person.swift in Sources */,
-				0326D1D51AE17C7100170A3D /* _SyncedPerson.swift in Sources */,
-				0326D1D71AE17C7100170A3D /* SyncedPerson.swift in Sources */,
-				0326D1D61AE17C7100170A3D /* Person.swift in Sources */,
-				0326D1BE1AE17BCA00170A3D /* DDRCoreDataKitTests.swift in Sources */,
+				0394DAB61B34A6C000EA5731 /* DDRCoreDataKitTests.xcdatamodeld in Sources */,
+				0394DA6E1B3487E500EA5731 /* DDRCoreDataKitTests.swift in Sources */,
+				0394DABC1B34A7FD00EA5731 /* Person.swift in Sources */,
+				0394DABB1B34A7FD00EA5731 /* Person+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0305BFC41AFAC415009F0636 /* PBXTargetDependency */ = {
+		0394DA6B1B3487E500EA5731 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0305BFB61AFAC415009F0636 /* DDRCoreDataKitMac */;
-			targetProxy = 0305BFC31AFAC415009F0636 /* PBXContainerItemProxy */;
-		};
-		0326D1B91AE17BCA00170A3D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0326D1AA1AE17BCA00170A3D /* DDRCoreDataKit */;
-			targetProxy = 0326D1B81AE17BCA00170A3D /* PBXContainerItemProxy */;
+			target = 0394DA5D1B3487E400EA5731 /* DDRCoreDataKit */;
+			targetProxy = 0394DA6A1B3487E500EA5731 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0305BFCA1AFAC416009F0636 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				FRAMEWORK_VERSION = A;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = DDRCoreDataKitMac/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		0305BFCB1AFAC416009F0636 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = DDRCoreDataKitMac/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		0305BFCC1AFAC416009F0636 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = DDRCoreDataKitMacTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		0305BFCD1AFAC416009F0636 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = DDRCoreDataKitMacTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
-		0326D1BF1AE17BCA00170A3D /* Debug */ = {
+		0394DA701B3487E500EA5731 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -557,8 +258,9 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -567,14 +269,13 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -585,7 +286,7 @@
 			};
 			name = Debug;
 		};
-		0326D1C01AE17BCA00170A3D /* Release */ = {
+		0394DA711B3487E500EA5731 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -616,7 +317,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -626,9 +327,10 @@
 			};
 			name = Release;
 		};
-		0326D1C21AE17BCA00170A3D /* Debug */ = {
+		0394DA731B3487E500EA5731 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -636,14 +338,17 @@
 				INFOPLIST_FILE = DDRCoreDataKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dave256apps.DDRCoreDataKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		0326D1C31AE17BCA00170A3D /* Release */ = {
+		0394DA741B3487E500EA5731 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -651,37 +356,28 @@
 				INFOPLIST_FILE = DDRCoreDataKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dave256apps.DDRCoreDataKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
-		0326D1C51AE17BCA00170A3D /* Debug */ = {
+		0394DA761B3487E500EA5731 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
 				INFOPLIST_FILE = DDRCoreDataKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dave256apps.DDRCoreDataKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		0326D1C61AE17BCA00170A3D /* Release */ = {
+		0394DA771B3487E500EA5731 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				INFOPLIST_FILE = DDRCoreDataKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dave256apps.DDRCoreDataKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -689,66 +385,45 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0305BFCE1AFAC416009F0636 /* Build configuration list for PBXNativeTarget "DDRCoreDataKitMac" */ = {
+		0394DA581B3487E400EA5731 /* Build configuration list for PBXProject "DDRCoreDataKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0305BFCA1AFAC416009F0636 /* Debug */,
-				0305BFCB1AFAC416009F0636 /* Release */,
+				0394DA701B3487E500EA5731 /* Debug */,
+				0394DA711B3487E500EA5731 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0305BFCF1AFAC416009F0636 /* Build configuration list for PBXNativeTarget "DDRCoreDataKitMacTests" */ = {
+		0394DA721B3487E500EA5731 /* Build configuration list for PBXNativeTarget "DDRCoreDataKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0305BFCC1AFAC416009F0636 /* Debug */,
-				0305BFCD1AFAC416009F0636 /* Release */,
+				0394DA731B3487E500EA5731 /* Debug */,
+				0394DA741B3487E500EA5731 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
-		0326D1A51AE17BCA00170A3D /* Build configuration list for PBXProject "DDRCoreDataKit" */ = {
+		0394DA751B3487E500EA5731 /* Build configuration list for PBXNativeTarget "DDRCoreDataKitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0326D1BF1AE17BCA00170A3D /* Debug */,
-				0326D1C01AE17BCA00170A3D /* Release */,
+				0394DA761B3487E500EA5731 /* Debug */,
+				0394DA771B3487E500EA5731 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		0326D1C11AE17BCA00170A3D /* Build configuration list for PBXNativeTarget "DDRCoreDataKit" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0326D1C21AE17BCA00170A3D /* Debug */,
-				0326D1C31AE17BCA00170A3D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		0326D1C41AE17BCA00170A3D /* Build configuration list for PBXNativeTarget "DDRCoreDataKitTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0326D1C51AE17BCA00170A3D /* Debug */,
-				0326D1C61AE17BCA00170A3D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		0326D1D91AE17E2300170A3D /* DDRCoreDataKitTests.xcdatamodeld */ = {
+		0394DA7E1B349CBD00EA5731 /* DDRCoreDataKitTests.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				0326D1DA1AE17E2300170A3D /* DDRCoreDataKitTests.xcdatamodel */,
+				0394DA7F1B349CBD00EA5731 /* DDRCoreDataKitTests.xcdatamodel */,
 			);
-			currentVersion = 0326D1DA1AE17E2300170A3D /* DDRCoreDataKitTests.xcdatamodel */;
-			name = DDRCoreDataKitTests.xcdatamodeld;
-			path = ../DDRCoreDataKitTests.xcdatamodeld;
+			currentVersion = 0394DA7F1B349CBD00EA5731 /* DDRCoreDataKitTests.xcdatamodel */;
+			path = DDRCoreDataKitTests.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
 /* End XCVersionGroup section */
 	};
-	rootObject = 0326D1A21AE17BCA00170A3D /* Project object */;
+	rootObject = 0394DA551B3487E400EA5731 /* Project object */;
 }

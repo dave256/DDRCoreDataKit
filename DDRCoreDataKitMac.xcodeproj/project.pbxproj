@@ -12,8 +12,6 @@
 		0326D2201AE1EBDE00170A3D /* DDRCoreDataKitMacTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0326D21F1AE1EBDE00170A3D /* DDRCoreDataKitMacTests.swift */; };
 		0326D22D1AE1ED2A00170A3D /* DDRCoreDataDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0326D2291AE1ED2A00170A3D /* DDRCoreDataDocument.swift */; };
 		0326D22E1AE1ED2A00170A3D /* DDRManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0326D22A1AE1ED2A00170A3D /* DDRManagedObject.swift */; };
-		0326D22F1AE1ED2A00170A3D /* DDRManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0326D22B1AE1ED2A00170A3D /* DDRManagedObjectContext.swift */; };
-		0326D2301AE1ED2A00170A3D /* DDRSyncedManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0326D22C1AE1ED2A00170A3D /* DDRSyncedManagedObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +33,6 @@
 		0326D21F1AE1EBDE00170A3D /* DDRCoreDataKitMacTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDRCoreDataKitMacTests.swift; sourceTree = "<group>"; };
 		0326D2291AE1ED2A00170A3D /* DDRCoreDataDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DDRCoreDataDocument.swift; path = DDRCoreDataKit/DDRCoreDataDocument.swift; sourceTree = SOURCE_ROOT; };
 		0326D22A1AE1ED2A00170A3D /* DDRManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DDRManagedObject.swift; path = DDRCoreDataKit/DDRManagedObject.swift; sourceTree = SOURCE_ROOT; };
-		0326D22B1AE1ED2A00170A3D /* DDRManagedObjectContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DDRManagedObjectContext.swift; path = DDRCoreDataKit/DDRManagedObjectContext.swift; sourceTree = SOURCE_ROOT; };
 		0326D22C1AE1ED2A00170A3D /* DDRSyncedManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DDRSyncedManagedObject.swift; path = DDRCoreDataKit/DDRSyncedManagedObject.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -81,7 +78,6 @@
 			children = (
 				0326D2291AE1ED2A00170A3D /* DDRCoreDataDocument.swift */,
 				0326D22A1AE1ED2A00170A3D /* DDRManagedObject.swift */,
-				0326D22B1AE1ED2A00170A3D /* DDRManagedObjectContext.swift */,
 				0326D22C1AE1ED2A00170A3D /* DDRSyncedManagedObject.swift */,
 				0326D2121AE1EBDE00170A3D /* DDRCoreDataKitMac.h */,
 				0326D2101AE1EBDE00170A3D /* Supporting Files */,
@@ -170,7 +166,8 @@
 		0326D2041AE1EBDE00170A3D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "David M Reed";
 				TargetAttributes = {
 					0326D20C1AE1EBDE00170A3D = {
@@ -222,9 +219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0326D22D1AE1ED2A00170A3D /* DDRCoreDataDocument.swift in Sources */,
-				0326D22F1AE1ED2A00170A3D /* DDRManagedObjectContext.swift in Sources */,
 				0326D22E1AE1ED2A00170A3D /* DDRManagedObject.swift in Sources */,
-				0326D2301AE1ED2A00170A3D /* DDRSyncedManagedObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +263,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -343,6 +339,7 @@
 				INFOPLIST_FILE = DDRCoreDataKitMac/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dave256apps.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -360,6 +357,7 @@
 				INFOPLIST_FILE = DDRCoreDataKitMac/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dave256apps.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -379,6 +377,7 @@
 				);
 				INFOPLIST_FILE = DDRCoreDataKitMacTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dave256apps.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -393,6 +392,7 @@
 				);
 				INFOPLIST_FILE = DDRCoreDataKitMacTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dave256apps.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

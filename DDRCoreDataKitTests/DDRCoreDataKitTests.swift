@@ -2,21 +2,25 @@
 //  DDRCoreDataKitTests.swift
 //  DDRCoreDataKitTests
 //
-//  Created by David Reed on 6/13/14.
-//  Copyright (c) 2014 David Reed. All rights reserved.
+//  Created by David Reed on 6/19/15.
+//  Copyright © 2015 David Reed. All rights reserved.
 //
+
 
 import XCTest
 import CoreData
 import DDRCoreDataKit
 
-func checkSaveError(status: DDRCoreDataSaveOrError, shouldBeOk: Bool = true) {
 
-    var ok: Bool = true
+func checkSaveError(status: DDRCoreDataSaveOrError, shouldBeOk: Bool = true, checkHadChanges: Bool = false, shouldHaveChanges: Bool = true) {
+
     switch status {
     case .SaveOkHadChanges(let hadChanges):
         if !shouldBeOk {
             XCTFail("save worked when it should have failed")
+        }
+        if checkHadChanges {
+            XCTAssertEqual(hadChanges, shouldHaveChanges)
         }
     case .Error(let error):
         if (shouldBeOk) {
@@ -29,6 +33,7 @@ func checkSaveError(status: DDRCoreDataSaveOrError, shouldBeOk: Bool = true) {
     }
 }
 
+
 class DDRCoreDataKitTests: XCTestCase {
 
     var storeURL : NSURL? = nil
@@ -38,16 +43,22 @@ class DDRCoreDataKitTests: XCTestCase {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         storeURL = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingPathComponent("test.sqlite"))
-        NSFileManager().removeItemAtURL(storeURL!, error: nil)
+        do {
+            try NSFileManager().removeItemAtURL(storeURL!)
+        } catch _ {
+        }
         let modelURL = NSBundle(forClass: DDRCoreDataKitTests.self).URLForResource("DDRCoreDataKitTests", withExtension: "momd")!
         doc = DDRCoreDataDocument(storeURL: storeURL, modelURL: modelURL, options: nil)
         XCTAssertNotNil(doc, "doc is nil when it should not be")
     }
-    
+
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
-        NSFileManager().removeItemAtURL(storeURL!, error: nil)
+        do {
+            try NSFileManager().removeItemAtURL(storeURL!)
+        } catch _ {
+        }
     }
 
     func testOpeningUIManagedDocumentDirectory() {
@@ -64,12 +75,22 @@ class DDRCoreDataKitTests: XCTestCase {
         let dfm = NSFileManager.defaultManager()
         let path = NSTemporaryDirectory().stringByAppendingPathComponent("CS161").stringByAppendingPathComponent("StoreContent")
 
-        dfm.createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: nil)
+        do {
+            try dfm.createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
+        } catch _ {
+        }
         let destinationURL = NSURL(fileURLWithPath: path.stringByAppendingPathComponent("persistentStore"))
-        XCTAssertNotNil(destinationURL!, "destinationURL is not nil")
-        dfm.removeItemAtURL(destinationURL!, error: nil)
+        XCTAssertNotNil(destinationURL, "destinationURL is not nil")
+        do {
+            try dfm.removeItemAtURL(destinationURL)
+        } catch _ {
+        }
         var error: NSError? = nil
-        dfm.moveItemAtURL(storeURL!, toURL: destinationURL!, error: &error)
+        do {
+            try dfm.moveItemAtURL(storeURL, toURL: destinationURL)
+        } catch let error1 as NSError {
+            error = error1
+        }
         XCTAssertNil(error, "move item error not nil")
 
         let docURL = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingPathComponent("CS161"))
@@ -79,15 +100,6 @@ class DDRCoreDataKitTests: XCTestCase {
     }
 
 
-
-    /*
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
-        }
-    }
-*/
 
     func testCoreDateDocumentError() {
         let badURL = NSURL(fileURLWithPath: "/no-directory/file.sql")
@@ -101,7 +113,11 @@ class DDRCoreDataKitTests: XCTestCase {
         insertDaveReedInManagedObjectContext(moc)
 
         var error: NSError? = nil
-        NSFileManager.defaultManager().removeItemAtURL(storeURL!, error: &error)
+        do {
+            try NSFileManager.defaultManager().removeItemAtURL(storeURL!)
+        } catch let error1 as NSError {
+            error = error1
+        }
         XCTAssertNil(error, "failed to delete file: \(error?.localizedDescription) \(error?.userInfo)")
         let status = doc.saveContextAndWait(true)
         checkSaveError(status, shouldBeOk: false)
@@ -115,9 +131,9 @@ class DDRCoreDataKitTests: XCTestCase {
             insertDaveSmithInManagedObjectContext(moc)
             insertJohnStroehInManagedObjectContext(moc)
 
-            var sorters = [NSSortDescriptor(key: "lastName", ascending: true), NSSortDescriptor(key: "firstName", ascending: true)]
-            var predicate = NSPredicate(format: "%K=%@", "firstName", "Dave")
-            var items = Person.allInstancesWithPredicate(predicate, sortDescriptors: sorters, inManagedObjectContext: moc)
+            let sorters = [NSSortDescriptor(key: "lastName", ascending: true), NSSortDescriptor(key: "firstName", ascending: true)]
+            let predicate = NSPredicate(format: "%K=%@", "firstName", "Dave")
+            var items = try! Person.instancesInManagedObjectContext(moc, withPredicate: predicate, sortedBy: sorters)
             XCTAssertEqual(items.count, 2, "items.count is not 2")
             var p : Person
             p = items[0] as! Person
@@ -126,7 +142,9 @@ class DDRCoreDataKitTests: XCTestCase {
             assertDaveSmith(p)
 
             let status = doc.saveContextAndWait(true)
-            checkSaveError(status)
+            checkSaveError(status, shouldBeOk: true, checkHadChanges: true, shouldHaveChanges: true)
+            let status2 = doc.saveContextAndWait(true)
+            checkSaveError(status2, shouldBeOk: true, checkHadChanges: true, shouldHaveChanges: false)
 
         } else {
             XCTFail("mainMOC is nil")
@@ -137,14 +155,14 @@ class DDRCoreDataKitTests: XCTestCase {
         let moc = doc.mainQueueMOC
 
         if moc != nil {
-            let childMOC = doc.newChildOfMainObjectContextWithConcurrencyType(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
+            let childMOC = doc.newChildOfMainObjectContextWithConcurrencyType(NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
             insertDaveReedInManagedObjectContext(moc)
             insertDaveSmithInManagedObjectContext(moc)
             childMOC.performBlockAndWait() {
                 self.insertJohnStroehInManagedObjectContext(childMOC)
             }
-            var sorters = [NSSortDescriptor(key: "lastName", ascending: true), NSSortDescriptor(key: "firstName", ascending: true)]
-            var items = Person.allInstancesWithPredicate(nil, sortDescriptors: sorters, inManagedObjectContext: moc)
+            let sorters = [NSSortDescriptor(key: "lastName", ascending: true), NSSortDescriptor(key: "firstName", ascending: true)]
+            var items = try! Person.allInstancesInManagedObjectContext(moc, sortedBy: sorters)
             XCTAssertEqual(items.count, 2, "items.count is not 2")
 
             var p : Person
@@ -153,8 +171,9 @@ class DDRCoreDataKitTests: XCTestCase {
             p = items[1] as! Person
             assertDaveSmith(p)
 
-            childMOC.performBlockAndWait() {
-                items = Person.allInstancesWithPredicate(nil, sortDescriptors: sorters, inManagedObjectContext: childMOC)
+            childMOC.performBlockAndWait() { [unowned self] in
+                items = try! Person.allInstancesInManagedObjectContext(childMOC, sortedBy: sorters)
+
                 // childMOC should have 3 items
                 XCTAssertEqual(items.count, 3, "items.count is not 3")
                 p = items[2] as! Person
@@ -162,23 +181,28 @@ class DDRCoreDataKitTests: XCTestCase {
             }
 
             // mainMOC should still have 2 items
-            items = Person.allInstancesWithPredicate(nil, sortDescriptors: sorters, inManagedObjectContext: moc)
+            items = try! Person.allInstancesInManagedObjectContext(moc, sortedBy: sorters)
             XCTAssertEqual(items.count, 2, "items.count is not 2")
 
             childMOC.performBlockAndWait() {
                 var error : NSError? = nil
-                childMOC.save(&error)
+                do {
+                    try childMOC.save()
+                } catch let error1 as NSError {
+                    error = error1
+                } catch {
+                    fatalError()
+                }
                 XCTAssertNil(error, "childMOC save error not nil: \(error?.localizedDescription) \(error?.userInfo)")
             }
 
             // now mainMOC should have 3 items
-            items = Person.allInstancesWithPredicate(nil, sortDescriptors: sorters, inManagedObjectContext: moc)
+            items = try! Person.allInstancesInManagedObjectContext(moc, sortedBy: sorters)
             // childMOC should have 3 items
             XCTAssertEqual(items.count, 3, "items.count is not 3")
             p = items[2] as! Person
             assertJohnStroeh(p)
 
-            var error : NSError?
             let status = doc!.saveContextAndWait(true)
             checkSaveError(status)
         } else {
@@ -186,26 +210,27 @@ class DDRCoreDataKitTests: XCTestCase {
         }
     }
 
+    /*
     func testSyncedPerson() {
         let moc = doc.mainQueueMOC
 
         if moc != nil {
-            var p = SyncedPerson(managedObjectContext: moc)
+            let p = SyncedPerson(managedObjectContext: moc)
             p.firstName = "Dave"
             p.lastName = "Reed"
             XCTAssertNotNil(p.ddrSyncIdentifier, "ddrSyncIdentifier is not nil")
         }
     }
+*/
 
     func testSameManagedObjectWithSameMOC() {
         let moc = doc.mainQueueMOC
+        insertDaveReedInManagedObjectContext(moc)
+        doc.saveContextAndWait(true)
+        let p1 = try! Person.allInstancesInManagedObjectContext(moc)[0] as! Person
         XCTAssertNotNil(moc, "mainQueueMOC is nil")
-        let p1 = insertDaveReedInManagedObjectContext(moc)
-        var error: NSError? = nil
-        //moc.obtainPermanentIDsForObjects([p1], error: &error)
-        XCTAssertNil(error, "obtainPerfmanentIDsForObjects had non nil error")
 
-        let otherMoc = doc.mainQueueMOC //doc.newChildOfMainObjectContextWithConcurrencyType(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
+        let otherMoc = doc.newChildOfMainObjectContextWithConcurrencyType(NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
         let p2 = p1.sameManagedObjectUsingManagedObjectContext(managedObjectContext: otherMoc) as! Person?
         XCTAssertNotNil(p2, "person in other MOC is nil")
         assertPerson(p2!, hasFirstName: "Dave", lastName: "Reed")
@@ -217,16 +242,14 @@ class DDRCoreDataKitTests: XCTestCase {
 
     func testSameManagedObjectWithAnotherMainQueueMOC() {
         let moc = doc.mainQueueMOC
+        insertDaveReedInManagedObjectContext(moc)
+        doc.saveContextAndWait(true)
+        let p1 = try! Person.allInstancesInManagedObjectContext(moc)[0] as! Person
         XCTAssertNotNil(moc, "mainQueueMOC is nil")
-        let p1 = insertDaveReedInManagedObjectContext(moc)
-        var error: NSError? = nil
-        //moc.obtainPermanentIDsForObjects([p1], error: &error)
-        XCTAssertNil(error, "obtainPerfmanentIDsForObjects had non nil error")
-
-        let otherMoc = doc.newChildOfMainObjectContextWithConcurrencyType(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
+        let otherMoc = doc.newChildOfMainObjectContextWithConcurrencyType(NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
         let p2 = p1.sameManagedObjectUsingManagedObjectContext(managedObjectContext: otherMoc) as! Person?
         let objectID = p1.objectID
-        otherMoc.performBlockAndWait {
+        otherMoc.performBlockAndWait { [unowned self] in
             XCTAssertNotNil(p2, "person in other MOC is nil")
             self.assertPerson(p2!, hasFirstName: "Dave", lastName: "Reed")
             XCTAssertEqual(objectID, p2!.objectID, "objectIDs do not match")
@@ -235,20 +258,18 @@ class DDRCoreDataKitTests: XCTestCase {
 
     func testSameManagedObjectWithPrivateChildMOC() {
         let moc = doc.mainQueueMOC
+        insertDaveReedInManagedObjectContext(moc)
+        doc.saveContextAndWait(true)
+        let p1 = try! Person.allInstancesInManagedObjectContext(moc)[0] as! Person
         XCTAssertNotNil(moc, "mainQueueMOC is nil")
-        let p1 = insertDaveReedInManagedObjectContext(moc)
-        var error: NSError? = nil
-        //moc.obtainPermanentIDsForObjects([p1], error: &error)
-        XCTAssertNil(error, "obtainPerfmanentIDsForObjects had non nil error")
-
         let otherMoc = doc.newChildOfMainObjectContextWithConcurrencyType()
         let p2 = p1.sameManagedObjectUsingManagedObjectContext(managedObjectContext: otherMoc) as! Person?
-        otherMoc.performBlockAndWait {
+        otherMoc.performBlockAndWait { [unowned self] in
             XCTAssertNotNil(p2, "person in other MOC is nil")
             self.assertPerson(p2!, hasFirstName: "Dave", lastName: "Reed")
         }
         let objectID = p1.objectID
-        otherMoc.performBlockAndWait {
+        otherMoc.performBlockAndWait { [unowned self] in
             XCTAssertNotNil(p2, "person in other MOC is nil")
             self.assertPerson(p2!, hasFirstName: "Dave", lastName: "Reed")
             XCTAssertEqual(objectID, p2!.objectID, "objectIDs do not match")
@@ -259,12 +280,10 @@ class DDRCoreDataKitTests: XCTestCase {
     }
 
 
-
     // MARK: - helper methods
 
     func insertPersonWithFirstName(firstName: String, lastName: String, inManagedObjectContext moc: NSManagedObjectContext) -> Person {
-        //var p = Person.newInstanceInManagedObjectContext(moc) as Person
-        var p = Person(managedObjectContext: moc)
+        let p = Person(managedObjectContext: moc)
         p.firstName = firstName
         p.lastName = lastName
         return p
@@ -290,11 +309,11 @@ class DDRCoreDataKitTests: XCTestCase {
     func assertDaveReed(person: Person) {
         assertPerson(person, hasFirstName: "Dave", lastName: "Reed")
     }
-
+    
     func assertDaveSmith(person: Person) {
         assertPerson(person, hasFirstName: "Dave", lastName: "Smith")
     }
-
+    
     func assertJohnStroeh(person: Person) {
         assertPerson(person, hasFirstName: "John", lastName: "Stroeh")
     }
