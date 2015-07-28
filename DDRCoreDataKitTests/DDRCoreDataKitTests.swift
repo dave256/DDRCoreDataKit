@@ -318,4 +318,10 @@ class DDRCoreDataKitTests: XCTestCase {
         assertPerson(person, hasFirstName: "John", lastName: "Stroeh")
     }
 
+    /* uncomment this and it crashes when "-com.apple.CoreData.ConcurrencyDebug 1" is set as an argument passed on launch
+    func testCrash() {
+        let childMOC = doc.newChildOfMainObjectContextWithConcurrencyType(NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
+        insertDaveReedInManagedObjectContext(childMOC)
+    }
+    */
 }
