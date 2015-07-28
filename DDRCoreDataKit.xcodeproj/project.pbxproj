@@ -40,6 +40,7 @@
 		0394DA7F1B349CBD00EA5731 /* DDRCoreDataKitTests.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DDRCoreDataKitTests.xcdatamodel; sourceTree = "<group>"; };
 		0394DAB91B34A7FD00EA5731 /* Person+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0394DABA1B34A7FD00EA5731 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		0395629C1B67D37700269F37 /* DDRCoreDataKitTests-v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DDRCoreDataKitTests-v2.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -401,6 +402,7 @@
 				0394DA741B3487E500EA5731 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0394DA751B3487E500EA5731 /* Build configuration list for PBXNativeTarget "DDRCoreDataKitTests" */ = {
 			isa = XCConfigurationList;
@@ -409,6 +411,7 @@
 				0394DA771B3487E500EA5731 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
@@ -416,9 +419,10 @@
 		0394DA7E1B349CBD00EA5731 /* DDRCoreDataKitTests.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				0395629C1B67D37700269F37 /* DDRCoreDataKitTests-v2.xcdatamodel */,
 				0394DA7F1B349CBD00EA5731 /* DDRCoreDataKitTests.xcdatamodel */,
 			);
-			currentVersion = 0394DA7F1B349CBD00EA5731 /* DDRCoreDataKitTests.xcdatamodel */;
+			currentVersion = 0395629C1B67D37700269F37 /* DDRCoreDataKitTests-v2.xcdatamodel */;
 			path = DDRCoreDataKitTests.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
